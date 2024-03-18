@@ -29,8 +29,8 @@ graph_params = {
     "color": "sora",  # Color of the graph (sora is a predefined color)
 }
 
-now = datetime(year=2024, month=3, day=17)
-#print(now.strftime("%Y%m%d"))
+now = datetime.now()
+date = now.strftime("%Y%m%d")
 # Headers containing the user token
 headers = {
     "X-USER-TOKEN": token,
@@ -41,9 +41,18 @@ headers = {
 # print(response.text)
 pixel_endpoint = f"{pixela_endpoint}/{username}/graphs/{graph_id}"
 pixel_config = {
-    "date": now.strftime("%Y%m%d"),
-    "quantity": "10",
+    "date": date,
+    "quantity": input("How many commits did you make today? "),
 }
 
 responses = requests.post(url=pixel_endpoint, json=pixel_config, headers=headers)
 print(responses.text)
+thing_endpoint =  f"{pixela_endpoint}/{username}/graphs/{graph_id}/{date}"
+thing_config = {
+    "quantity": "15"
+}
+#response = requests.put(url=thing_endpoint, json=thing_config, headers=headers)
+#print(response.text)
+delete_endpoint =  f"{pixela_endpoint}/{username}/graphs/{graph_id}/{date}"
+#response = requests.delete(url=delete_endpoint, headers=headers)
+#print(response.text)
